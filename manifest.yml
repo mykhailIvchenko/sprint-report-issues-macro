@@ -1,0 +1,32 @@
+modules:
+  macro:
+    - key: sprint-report-issues-macro-hello-world
+      function: main
+      title: sprint-report-issues-macro
+      description: issues
+      config:
+        function: config-function-key
+  function:
+    - key: main
+      handler: index.run
+    - key: config-function-key
+      handler: index.config
+app:
+  id: ari:cloud:ecosystem::app/d41a5b7e-04b3-4ec0-863d-c97a16d134df
+permissions:
+  scopes:
+    - read:issue:jira
+    - read:sprint:jira-software
+    - read:project:jira
+    - read:jql:jira
+    - read:issue-details:jira
+    - read:board-scope.admin:jira-software
+    - read:content-details:confluence
+    - read:field:jira
+    - read:field.option:jira
+    - read:group:jira
+    - read:field.default-value:jira
+    - read:avatar:jira
+    - read:issue-meta:jira
+    - read:audit-log:jira
+    - read:field-configuration:jira
