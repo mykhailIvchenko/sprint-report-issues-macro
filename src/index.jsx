@@ -16,8 +16,10 @@ import ForgeUI, {
     Link,
     Badge,
     Em,
-    DateLozenge
+    DateLozenge,
+    useProductContext
 } from "@forge/ui";
+
 import api, {route} from "@forge/api";
 
 const defaultConfig = {
@@ -181,7 +183,14 @@ const getAllSprints = async (boardId) => {
 
 
 const App = () => {
-    // Retrieve the configuration
+
+    const productContext = useProductContext();
+
+    if (productContext.license.isActive !== true) {
+        console.log("App is not licensed");
+        return <Text>enter the spring id to render report</Text>;
+    }
+   // Retrieve the configuration
     const config = useConfig() || defaultConfig;
 
     const sprintId = config.sprintId;
@@ -189,6 +198,7 @@ const App = () => {
         console.log("Oh shit here we gone again")
         return <Text>enter the spring id to render report</Text>;
     }
+
     const [serverInfo] = useState(getServerInfo());
 
     const url = serverInfo.baseUrl.concat("/").concat("browse");
@@ -196,6 +206,10 @@ const App = () => {
     const [sprintInfo] = useState(getSprintInfo(sprintId));
 
     const [issues] = useState(getIssuesForSprint(sprintId));
+
+    if (!sprintInfo || !issues ) {
+        return <Text>No issues for target sprint</Text>;
+    }
 
     const validatedIssues = validateIssues(issues, sprintInfo);
 
@@ -212,7 +226,7 @@ const App = () => {
             <Table>
                 <Head>
                     <Cell>
-                        <Text>Key</Text>
+                        <Text>Key 1</Text>
                     </Cell>
                     <Cell>
                         <Text>Summary</Text>
@@ -300,8 +314,10 @@ const App = () => {
             <Table>
                 <Row>
                     <Cell><Text>Total</Text></Cell>
-                    <Cell><Text>Story points sum: {validatedIssues
+                    <Cell><Text>Story points sum:
+                        {validatedIssues
                         .map(issue => issue.fields.customfield_10016)
+                        .filter(i=>i)
                         .reduce(function (a, b) {
                             return a + b;
                         })

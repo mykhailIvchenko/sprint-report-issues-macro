@@ -13,6 +13,8 @@ modules:
       handler: index.config
 app:
   id: ari:cloud:ecosystem::app/d41a5b7e-04b3-4ec0-863d-c97a16d134df
+  licensing:
+    enabled: true
 permissions:
   scopes:
     - read:issue:jira
