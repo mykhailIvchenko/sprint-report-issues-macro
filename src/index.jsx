@@ -21,6 +21,14 @@ import ForgeUI, {
 } from "@forge/ui";
 
 import api, {route} from "@forge/api";
+import {SpringMetrics} from "./indexMetrics";
+
+// ------------------------------------------------------------------------------------------------------------------------
+
+
+
+// ------------------------------------------------------------------------------------------------------------------------
+
 
 const defaultConfig = {
     sprintId: null,
@@ -50,6 +58,7 @@ function isIssueAddedAfterSprintStart(actions, sprintId) {
 }
 
 function isNew(actions, sprintId) {
+    console.log("Something")
 
     for (const action of actions) {
         if (action.items[0].field === "Sprint" &&
@@ -186,10 +195,10 @@ const App = () => {
 
     const productContext = useProductContext();
 
-    if (productContext.license.isActive !== true) {
-        console.log("App is not licensed");
-        return <Text>enter the spring id to render report</Text>;
-    }
+    // if (productContext.license.isActive !== true) {
+    //     console.log("App is not licensed");
+    //     return <Text>enter the spring id to render report</Text>;
+    // }
    // Retrieve the configuration
     const config = useConfig() || defaultConfig;
 
@@ -226,7 +235,7 @@ const App = () => {
             <Table>
                 <Head>
                     <Cell>
-                        <Text>Key 1</Text>
+                        <Text>Key</Text>
                     </Cell>
                     <Cell>
                         <Text>Summary</Text>
@@ -329,15 +338,14 @@ const App = () => {
                     </Cell>
                 </Row>
             </Table>
-
-        </Fragment>
+            {/*//<SpringMetrics></SpringMetrics>*/}
+ </Fragment>
     );
 };
 
 
 export const run = render(
-    <Macro app={<App/>}
-    />
+    <Macro app={<App/>}/>
 );
 
 // Function that defines the configuration UI

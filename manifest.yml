@@ -17,6 +17,7 @@ app:
     enabled: true
 permissions:
   scopes:
+    - storage:app
     - read:issue:jira
     - read:sprint:jira-software
     - read:project:jira
@@ -32,3 +33,4 @@ permissions:
     - read:issue-meta:jira
     - read:audit-log:jira
     - read:field-configuration:jira
+    - read:board-scope:jira-software
